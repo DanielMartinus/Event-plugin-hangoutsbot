@@ -1,4 +1,4 @@
-This repository contains a plugin for [hangouts-bot](https://github.com/hangoutsbot/hangoutsbot). Simply put the python script ```event.py``` in the plugins folder which is located in the hangupsbot directory. Last but not least, add ```event``` to the config file of your bot and restart the bot to enable the plugin.
+This repository contains a plugin for [hangouts-bot](https://github.com/hangoutsbot/hangoutsbot). Simply put the python script ```events.py``` in the plugins folder which is located in the hangupsbot directory. Last but not least, add ```events``` to the config file of your bot and restart the bot to enable the plugin.
 
 # Event-plugin
 
