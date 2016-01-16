@@ -1,6 +1,7 @@
 import asyncio
 import plugins
 import string
+import json
 
 
 def _initialise(bot):
@@ -27,7 +28,7 @@ def join(bot, event, *args):
             return
 
         _key = conv_event['_current']
-        conv_event = yield from _join(bot, event, conv_event, _key)
+        conv_event = yield from _join(bot, event, conv_event, _key, None)
 
         # if _event['hangout'] == 1:
         # add to hangout instantly
@@ -40,7 +41,7 @@ def join(bot, event, *args):
         for num, key in enumerate(sorted(conv_event, key=str)):
             if (num) == int(id):
                 # submit to hangout
-                yield from _join(bot, event, conv_event, key)
+                yield from _join(bot, event, conv_event, key, None)
                 found = True
                 break
         if found == False:
@@ -103,6 +104,31 @@ def event(bot, event, *args):
             bot.memory.set_by_path(['_event', event.conv_id], conv_event)
             yield from bot.coro_send_message(event.conv_id, "Event removed")
 
+        elif parameters[0] == "add":
+            if not len(parameters) == 3:
+                yield from bot.coro_send_message(event.conv_id, 'Parameters missing. Command should be <b>/bot event add <event_id> <user_id></b>')
+                return
+            if not parameters[1].isdigit():
+                yield from bot.coro_send_message(event.conv_id, 'Not a valid event id')
+                return
+            if not parameters[2].isdigit():
+                yield from bot.coro_send_message(event.conv_id, 'Not a valid user id')
+                return
+
+            _event = _getEventById(conv_event, parameters[1])
+            _newParticipantId = parameters[2];
+            
+            _newParticipant = None            
+            for u in event.conv.users:
+               if(_newParticipantId == u.id_.chat_id):
+                  _newParticipant = u
+                  break
+
+            if _newParticipant is None:
+               yield from bot.coro_send_message(event.conv_id, 'Can\'t find this user in this hangout')
+            else:
+               yield from _join(bot, event, conv_event, _event, _newParticipant) 
+ 
         elif parameters[0] == "leave":
             if not len(parameters) == 2:
                 yield from bot.coro_send_message(event.conv_id, '[ID] missing of the event you want to leave. Use <b>/events</b> to list the id\'s')
@@ -218,17 +244,22 @@ def event(bot, event, *args):
 
 
 @asyncio.coroutine
-def _join(bot, event, conv_event, _key):
+def _join(bot, event, conv_event, _key, _user):
     _event = conv_event[_key]
 
+    if _user is not None:
+       _newUser = _user
+    else:
+       _newUser = event.user
+
     participants = _event['participants']
-    participants[event.user.id_.chat_id] = event.user.full_name
+    participants[_newUser.id_.chat_id] = _newUser.full_name
 
     _event['participants'] = participants
     conv_event[_key] = _event
 
     bot.memory.set_by_path(['_event', event.conv_id], conv_event)
-    yield from bot.coro_send_message(event.conv_id, '<b>{}</b> joined <b>{}</b>'.format(event.user.full_name, conv_event[_key]['title']))
+    yield from bot.coro_send_message(event.conv_id, '<b>{}</b> joined <b>{}</b>'.format(_newUser.full_name, conv_event[_key]['title']))
 
     return
 
