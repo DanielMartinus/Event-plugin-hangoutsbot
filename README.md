@@ -46,6 +46,6 @@ For more help, type ```! help <command>``` to get help for the specified command
 - Create hangout with all participants
 - Let everyone automatically join the hangout after hangout is created and joining the event
 - Turn of auto join to hangout by owner of the event
-- Add someone in the hangout by googleId to the event
+- ~~Add someone in the hangout by googleId to the event~~
 
 
