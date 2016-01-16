@@ -116,6 +116,10 @@ def event(bot, event, *args):
                 return
 
             _event = _getEventById(conv_event, parameters[1])
+            if _event is None:
+                yield from bot.coro_send_message(event.conv_id, 'Event id does not exists, try <b>/bot events</b> to see all event id\'s')
+                return;
+
             _newParticipantId = parameters[2];
             
             _newParticipant = None            
@@ -270,6 +274,6 @@ def _getEventById(conv_event, id):
             # ignore other keys. Only return keys based on the event key format
             # event:conv_id:name_event
             if not key.split(':')[0] == 'event':
-                return
+                return None
             return key
-    return
+    return None
