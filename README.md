@@ -8,19 +8,19 @@ All the commands below are shown with the **!** prefix to trigger the bot and ke
 
 ```! event <name>``` create event
 
-```! event rename <number> <name>```
+```! event rename <event_number> <name>```
 
-```! event <number>``` list participants of event
+```! event <event_number>``` list participants of event
 
-```! event <number> --id``` list the user id of the participants
+```! event <event_number> --id``` list the user id of the participants
 
-```! event leave <number>``` 
+```! event leave <event_number>``` 
 
-```! event remove <number>``` remove entire event
+```! event remove <event_number>``` remove entire event
 
-```! event kick <number> <user_id>``` 
+```! event kick <event_number> <user_id>``` 
 
-```! event hangout <number>``` **[Available in next update]** start a hangout with all participants
+```! event hangout <event_number>``` **[Available in next update]** start a hangout with all participants
 
 
 ### Get a list of available events in your hangout
