@@ -56,6 +56,7 @@ def events(bot, event, *args):
 def event(bot, event, *args):
     """Create events or let other people join events with:
     <b>/bot event <name></b> to create an event
+    <b>/bot event list</b> print list of all available events
     <b>/bot event <id></b> to list participants
     <b>/bot event <id> --id</b> to list participants and userId
     <b>/bot event remove <id></b> cancel the event
