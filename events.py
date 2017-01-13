@@ -51,25 +51,7 @@ def join(bot, event, *args):
 
 def events(bot, event, *args):
     """List all available events of current hangout"""
-    conv_event = bot.memory.get_by_path(['_event', event.conv_id])
-    html = []
-    for num, key in enumerate(sorted(conv_event, key=str)):
-        segment = key.split(':')
-        if segment[0] == "event":
-            html.append("{}. <b>{}</b> [{} people]".format(str(num), conv_event[
-                        key]['title'], len(conv_event[key]['participants'])))
-
-    if len(html) == 0:
-        yield from bot.coro_send_message(event.conv_id, '<i>No events available yet. Use <b>/event <eventname></b> to create your own event</i>')
-        return
-    # Generate the output list. Title first, then the participants
-    html.insert(0, _("<b>Current available events:</b>"))
-    message = _("<br />".join(html))
-
-    yield from bot.coro_send_message(event.conv_id, message)
-
-    return
-
+    yield from _print_event_list(bot, event)
 
 def event(bot, event, *args):
     """Create events or let other people join events with:
@@ -103,7 +85,8 @@ def event(bot, event, *args):
             conv_event.pop(_key)
             bot.memory.set_by_path(['_event', event.conv_id], conv_event)
             yield from bot.coro_send_message(event.conv_id, "Event removed")
-
+        elif parameters[0] == "list":
+            yield from _print_event_list(bot, event)
         elif parameters[0] == "add":
             if not len(parameters) == 3:
                 yield from bot.coro_send_message(event.conv_id, 'Parameters missing. Command should be <b>/bot event add <event_id> <user_id></b>')
@@ -121,8 +104,8 @@ def event(bot, event, *args):
                 return;
 
             _newParticipantId = parameters[2];
-            
-            _newParticipant = None            
+
+            _newParticipant = None
             for u in event.conv.users:
                if(_newParticipantId == u.id_.chat_id):
                   _newParticipant = u
@@ -131,8 +114,8 @@ def event(bot, event, *args):
             if _newParticipant is None:
                yield from bot.coro_send_message(event.conv_id, 'Can\'t find this user in this hangout')
             else:
-               yield from _join(bot, event, conv_event, _event, _newParticipant) 
- 
+               yield from _join(bot, event, conv_event, _event, _newParticipant)
+
         elif parameters[0] == "leave":
             if not len(parameters) == 2:
                 yield from bot.coro_send_message(event.conv_id, '[ID] missing of the event you want to leave. Use <b>/events</b> to list the id\'s')
@@ -267,6 +250,26 @@ def _join(bot, event, conv_event, _key, _user):
 
     return
 
+@asyncio.coroutine
+def _print_event_list(bot, event):
+    """List all available events of current hangout"""
+    conv_event = bot.memory.get_by_path(['_event', event.conv_id])
+    html = []
+    for num, key in enumerate(sorted(conv_event, key=str)):
+        segment = key.split(':')
+        if segment[0] == "event":
+            html.append("{}. <b>{}</b> [{} people]".format(str(num), conv_event[
+                        key]['title'], len(conv_event[key]['participants'])))
+
+    if len(html) == 0:
+        yield from bot.coro_send_message(event.conv_id, '<i>No events available yet. Use <b>/event <eventname></b> to create your own event</i>')
+        return
+    # Generate the output list. Title first followed by the participants
+    html.insert(0, _("<b>Current available events:</b>"))
+    message = _("<br />".join(html))
+
+    yield from bot.coro_send_message(event.conv_id, message)
+    return
 
 def _getEventById(conv_event, id):
     for num, key in enumerate(sorted(conv_event, key=str)):
