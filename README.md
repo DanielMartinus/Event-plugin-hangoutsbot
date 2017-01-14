@@ -40,12 +40,3 @@ All the commands below are shown with the **!** prefix to trigger the bot and ke
 ### Help
 
 For more help, type ```! help <command>``` to get help for the specified command from the bot.
-
-
-### TO-DO
-
-- Create hangout with all participants
-- Let everyone automatically join the hangout after hangout is created and joining the event
-- Turn of auto join to hangout by owner of the event
-- Add guests (people who are not in the hangout)
-- ~~Add a person manually via googleId to an event~~
