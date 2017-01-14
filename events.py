@@ -32,10 +32,14 @@ def events(bot, event, *args):
 def event(bot, event, *args):
     """Create events or let other people join events with:
     <b>/bot event <name></b> to create an event
+    <b>/bot event join</b> join latest created event
+    <b>/bot event join <id></b> join event by id
+    <b>/bot event leave <id></b> leave event with id
     <b>/bot event list</b> print list of all available events
     <b>/bot event <id></b> to list participants
     <b>/bot event <id> --id</b> to list participants and userId
     <b>/bot event remove <id></b> cancel the event
+    <b>/bot event add <event_id> <user_id></b> add user by googleId
     <b>/bot event kick <id> <user_google_id></b> remove user from an event
     <b>/bot event rename <id> <name></b> rename the event
     <b>/bot event hangout</b> create an hangout for all participants"""
