@@ -66,6 +66,7 @@ def event(bot, event, *args):
             yield from _printEventList(bot, event)
         elif parameters[0] == "join":
             newArgs = list(args)
+            # remove first argument which is not needed
             newArgs.pop(0)
             yield from _joinEvent(bot, event, newArgs)
         elif parameters[0] == "add":
