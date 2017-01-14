@@ -20,7 +20,9 @@ All the commands below are shown with the **!** prefix to trigger the bot and ke
 
 ```! event <event_number> --id``` list the user id of the participants
 
-```! event leave <event_number>```
+```! event leave <event_number>``` leave event by event id
+
+```! event add <event_id> <user_id>``` add user by googleId
 
 ```! event remove <event_number>``` remove entire event
 
