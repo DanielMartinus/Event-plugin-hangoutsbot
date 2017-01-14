@@ -6,41 +6,36 @@ All the commands below are shown with the **!** prefix to trigger the bot and ke
 
 ### Actions for **event**
 
-```! event <name>``` create event
+```! event <name>``` Create an event titled <name>
 
-```! event rename <event_number> <name>```
+```! event join <id>``` Join the event <id>. Omitting <id> will join the latest created event.
 
-```! event join``` join latest created event
+```! event leave <event_number>``` Leave event <id>.
 
-```! event join <id>``` join event with id
+```! event list``` List all the events for this hangout
 
-```! event list``` print list of all available events
+```! event <id> [--id]``` List those attending event <id>. Append --id to return the full G+ IDs of the attendees.
 
-```! event <event_number>``` list participants of event
+```! event rename <id> <name>``` Rename event <id>
 
-```! event <event_number> --id``` list the user id of the participants
+```! event cancel <event_number>``` Cancel event <id>
 
-```! event leave <event_number>``` leave event by event id
+```! event add <id> <G+ ID>``` Add user to event <id> by their G+ ID
 
-```! event add <event_id> <user_id>``` add user by googleId
-
-```! event remove <event_number>``` remove entire event
-
-```! event kick <event_number> <user_id>```
+```! event kick <id> <G+ ID>``` Kick user from event <id> by their G+ ID
 
 
 ### Get a list of available events in your hangout
 
 
-```! events``` Get a list of all available events and list the id's per event
+```! events``` List all the events for this hangout
 
 ### Join an event
 
 
-
 ```! join``` join latest created event
 
-```! join <number>```
+```! join <id>``` join the event <id>
 
 ### Help
 
