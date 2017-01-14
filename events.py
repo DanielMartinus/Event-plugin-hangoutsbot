@@ -19,37 +19,10 @@ def clear(bot, event, *args):
 
 
 def join(bot, event, *args):
-    """Join an event by using this command
-    <b>/join <id></b> join a hangout by id. List the event id's with /events
-    Leave the id blank to join the latest created event
-    If the event is converted to a hangout you will automatically join the hangout"""
-    conv_event = bot.memory.get_by_path(['_event', event.conv_id])
-    parameters = list(args)
-    if len(parameters) == 0:
-        if not '_current' in conv_event.keys():
-            yield from bot.coro_send_message(event.conv_id, 'No event created yet.')
-            return
-
-        _key = conv_event['_current']
-        conv_event = yield from _join(bot, event, conv_event, _key, None)
-
-        # if _event['hangout'] == 1:
-        # add to hangout instantly
-    else:
-        id = parameters[0]
-        if not id.isdigit():
-            yield from bot.coro_send_message(event.conv_id, 'Please submit a valid event id. <b>/events</b> list the event id\'s')
-            return
-        found = False
-        for num, key in enumerate(sorted(conv_event, key=str)):
-            if (num) == int(id):
-                # submit to hangout
-                yield from _join(bot, event, conv_event, key, None)
-                found = True
-                break
-        if found == False:
-            yield from bot.coro_send_message(event.conv_id, 'Id doesn\'t exist. <b>/events</b> list the event id\'s')
-            return
+    """<b>/join <id></b> join the event with given id.
+Leave the id blank to join the latest created event.
+Alternatively use /event join <id>."""
+    yield from _joinEvent(bot, event, list(args))
 
 
 def events(bot, event, *args):
@@ -91,6 +64,11 @@ def event(bot, event, *args):
             yield from bot.coro_send_message(event.conv_id, "Event removed")
         elif parameters[0] == "list":
             yield from _printEventList(bot, event)
+        elif parameters[0] == "join":
+            newArgs = list(args)
+            # remove first argument which is not needed
+            newArgs.pop(0)
+            yield from _joinEvent(bot, event, newArgs)
         elif parameters[0] == "add":
             if not len(parameters) == 3:
                 yield from bot.coro_send_message(event.conv_id, 'Parameters missing. Command should be <b>/bot event add <event_id> <user_id></b>')
@@ -274,6 +252,32 @@ def _printEventList(bot, event):
 
     yield from bot.coro_send_message(event.conv_id, message)
     return
+
+@asyncio.coroutine
+def _joinEvent(bot, event, parameters):
+    conv_event = bot.memory.get_by_path(['_event', event.conv_id])
+    if len(parameters) == 0:
+        if not '_current' in conv_event.keys():
+            yield from bot.coro_send_message(event.conv_id, 'No event created yet.')
+            return
+
+        _key = conv_event['_current']
+        conv_event = yield from _join(bot, event, conv_event, _key, None)
+    else:
+        id = parameters[0]
+        if not id.isdigit():
+            yield from bot.coro_send_message(event.conv_id, 'Please submit a valid event id. <b>/events</b> list the event id\'s')
+            return
+        found = False
+        for num, key in enumerate(sorted(conv_event, key=str)):
+            if (num) == int(id):
+                # submit to hangout
+                yield from _join(bot, event, conv_event, key, None)
+                found = True
+                break
+        if found == False:
+            yield from bot.coro_send_message(event.conv_id, 'Id doesn\'t exist. <b>/events</b> list the event id\'s')
+            return
 
 def _getEventById(conv_event, id):
     for num, key in enumerate(sorted(conv_event, key=str)):
