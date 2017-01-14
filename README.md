@@ -10,6 +10,10 @@ All the commands below are shown with the **!** prefix to trigger the bot and ke
 
 ```! event rename <event_number> <name>```
 
+```! event join``` join latest created event
+
+```! event join <id>``` join event with id
+
 ```! event list``` print list of all available events
 
 ```! event <event_number>``` list participants of event
