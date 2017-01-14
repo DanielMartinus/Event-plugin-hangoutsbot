@@ -22,10 +22,6 @@ def join(bot, event, *args):
     """<b>/join <id></b> join the event with given id.
     Leave the id blank to join the latest created event.
     Alternatively use /event join <id>."""
-    """Join an event by using this command
-    <b>/join <id></b> join a hangout by id. List the event id's with /events
-    Leave the id blank to join the latest created event
-    If the event is converted to a hangout you will automatically join the hangout"""
     conv_event = bot.memory.get_by_path(['_event', event.conv_id])
     parameters = list(args)
     if len(parameters) == 0:
@@ -35,9 +31,6 @@ def join(bot, event, *args):
 
         _key = conv_event['_current']
         conv_event = yield from _join(bot, event, conv_event, _key, None)
-
-        # if _event['hangout'] == 1:
-        # add to hangout instantly
     else:
         id = parameters[0]
         if not id.isdigit():
