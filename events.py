@@ -19,12 +19,12 @@ def clear(bot, event, *args):
 
 
 def join(bot, event, *args):
-    """<br/>See event join."""
+    """<br/><i><b>join</b> [<id>]</i><br />Join the event <id>. Omitting <id> will join the latest created event."""
     yield from _joinEvent(bot, event, list(args))
 
 
 def events(bot, event, *args):
-    """<br/>See event list."""
+    """<br/><i><b>events</b></i><br />List all the events for this hangout"""
     yield from _printEventList(bot, event)
 
 def event(bot, event, *args):
