@@ -3,6 +3,9 @@ import plugins
 import string
 import json
 
+# Event plugin
+# Have ideas or want to contribute you can find the source at
+# https://github.com/DanielMartinus/Event-plugin-hangoutsbot
 
 def _initialise(bot):
     plugins.register_user_command(["event", "events", "join"])
