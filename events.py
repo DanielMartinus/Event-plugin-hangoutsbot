@@ -19,30 +19,16 @@ def clear(bot, event, *args):
 
 
 def join(bot, event, *args):
-    """<b>/join <id></b> join the event with given id.
-Leave the id blank to join the latest created event.
-Alternatively use /event join <id>."""
+    """<br/><i><b>join</b> [<id>]</i><br />Join the event <id>. Omitting <id> will join the latest created event."""
     yield from _joinEvent(bot, event, list(args))
 
 
 def events(bot, event, *args):
-    """List all available events of current hangout"""
+    """<br/><i><b>events</b></i><br />List all the events for this hangout"""
     yield from _printEventList(bot, event)
 
 def event(bot, event, *args):
-    """Create events or let other people join events with:
-    <b>/bot event <name></b> to create an event
-    <b>/bot event join</b> join latest created event
-    <b>/bot event join <id></b> join event by id
-    <b>/bot event leave <id></b> leave event with id
-    <b>/bot event list</b> print list of all available events
-    <b>/bot event <id></b> to list participants
-    <b>/bot event <id> --id</b> to list participants and userId
-    <b>/bot event remove <id></b> cancel the event
-    <b>/bot event add <event_id> <user_id></b> add user by googleId
-    <b>/bot event kick <id> <user_google_id></b> remove user from an event
-    <b>/bot event rename <id> <name></b> rename the event
-    <b>/bot event hangout</b> create an hangout for all participants"""
+    """<br />[botalias] <i><b>event</b> <name></i><br />Create an event titled <name>.<br /><u>Usage</u><br />[botalias] <i><b>event</b> Beergress tonight!</i><br />---<br />[botalias] <i><b>event join</b> [<id>]</i><br />Join the event <id>. Omitting <id> will join the latest created event.<br /><u>Usage</u><br />[botalias] <i><b>event join</b> 3</i><br />---<br />[botalias] <i><b>event leave</b> <id></i><br />Leave event <id>.<br /><u>Usage</u><br />[botalias] <i><b>event leave</b> 3</i><br />---<br />[botalias] <i><b>event list</b></i><br />List all the events for this hangout<br /><u>Usage</u><br />[botalias] <i><b>event list</b></i><br />---<br />[botalias] <i><b>event</b> <id> [--id]</i><br />List those attending event <id>. Append --id to return the full G+ IDs of the attendees.<br /><u>Usage</u><br />[botalias] <i><b>event</b> 3 --id</i><br />---<br />[botalias] <i><b>event rename</b> <id> <new name></i><br />Rename event <id><br /><u>Usage</u><br />[botalias] <i><b>event rename</b> 3 Beergress tomorrow night!</i><br />---<br />[botalias] <i><b>event cancel</b> <id></i><br />Cancel event <id><br /><u>Usage</u><br />[botalias] <i><b>event cancel</b> 3</i><br />---<br />[botalias] <i><b>event add</b> <id> <G+ ID></i><br />Add user to event <id> by their G+ ID<br /><u>Usage</u><br />[botalias] <i><b>event add</b> 3 110350977702120778591</i><br />---<br />[botalias] <i><b>event kick</b> <id> <G+ ID></i><br />Kick user from event <id> by their G+ ID<br /><u>Usage</u><br />[botalias] <i><b>event kick</b> 3 110350977702120778591</i><br />---<br />[botalias] <i><b>event hangout</b> <id></i><br />Create a new hangout with the attendees of event <id><br /><u>Usage</u><br />[botalias] <i><b>event hangout</b> 3</i>"""
     parameters = list(args)
 
     if not bot.memory.exists(['_event']):
