@@ -28,8 +28,6 @@ All the commands below are shown with the **!** prefix to trigger the bot and ke
 
 ```! event kick <event_number> <user_id>```
 
-```! event hangout <event_number>``` **[Available in next update]** start a hangout with all participants
-
 
 ### Get a list of available events in your hangout
 
