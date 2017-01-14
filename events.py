@@ -19,6 +19,9 @@ def clear(bot, event, *args):
 
 
 def join(bot, event, *args):
+    """<b>/join <id></b> join the event with given id.
+    Leave the id blank to join the latest created event.
+    Alternatively use /event join <id>."""
     """Join an event by using this command
     <b>/join <id></b> join a hangout by id. List the event id's with /events
     Leave the id blank to join the latest created event
