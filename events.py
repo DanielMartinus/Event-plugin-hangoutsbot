@@ -54,7 +54,7 @@ def join(bot, event, *args):
 
 def events(bot, event, *args):
     """List all available events of current hangout"""
-    yield from _print_event_list(bot, event)
+    yield from _printEventList(bot, event)
 
 def event(bot, event, *args):
     """Create events or let other people join events with:
@@ -90,7 +90,7 @@ def event(bot, event, *args):
             bot.memory.set_by_path(['_event', event.conv_id], conv_event)
             yield from bot.coro_send_message(event.conv_id, "Event removed")
         elif parameters[0] == "list":
-            yield from _print_event_list(bot, event)
+            yield from _printEventList(bot, event)
         elif parameters[0] == "add":
             if not len(parameters) == 3:
                 yield from bot.coro_send_message(event.conv_id, 'Parameters missing. Command should be <b>/bot event add <event_id> <user_id></b>')
@@ -255,7 +255,7 @@ def _join(bot, event, conv_event, _key, _user):
     return
 
 @asyncio.coroutine
-def _print_event_list(bot, event):
+def _printEventList(bot, event):
     """List all available events of current hangout"""
     conv_event = bot.memory.get_by_path(['_event', event.conv_id])
     html = []
