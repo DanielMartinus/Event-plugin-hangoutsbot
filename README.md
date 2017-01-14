@@ -2,7 +2,7 @@ This repository contains a plugin for [hangouts-bot](https://github.com/hangouts
 
 # Event-plugin
 
-All the commands below are shown with the **!** prefix to trigger the bot and keep the examples short. When not having this prefix enabled for your hangoutsbot you probably have to trigger the events with **/bot**. 
+All the commands below are shown with the **!** prefix to trigger the bot and keep the examples short. When not having this prefix enabled for your hangoutsbot you probably have to trigger the events with **/bot**.
 
 ### Actions for **event**
 
@@ -10,15 +10,17 @@ All the commands below are shown with the **!** prefix to trigger the bot and ke
 
 ```! event rename <event_number> <name>```
 
+```! event list``` print list of all available events
+
 ```! event <event_number>``` list participants of event
 
 ```! event <event_number> --id``` list the user id of the participants
 
-```! event leave <event_number>``` 
+```! event leave <event_number>```
 
 ```! event remove <event_number>``` remove entire event
 
-```! event kick <event_number> <user_id>``` 
+```! event kick <event_number> <user_id>```
 
 ```! event hangout <event_number>``` **[Available in next update]** start a hangout with all participants
 
@@ -48,5 +50,3 @@ For more help, type ```! help <command>``` to get help for the specified command
 - Turn of auto join to hangout by owner of the event
 - Add guests (people who are not in the hangout)
 - ~~Add a person manually via googleId to an event~~
-
-
